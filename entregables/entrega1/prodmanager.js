@@ -51,9 +51,9 @@ class ProductManager{
   }
 
 
-  const testeo = new ProductManager()
+  const testingThings = new ProductManager()
 
-  testeo.addProduct('coso', 'blabla', 100, 'blabla', 10)
-  testeo.addProduct('coso', 'blabla', 100, 'blabla', 20)
-  console.log(testeo.getProductById(2000))
-  console.log(testeo.getProducts)
+  testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
+  testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
+  console.log(testingThings.getProductById(2000))
+  console.log(testingThings.getProducts)
