@@ -13,7 +13,6 @@ class ProductManager{
             console.log('Missing parameters')
             return false
         }
-        //console.log(code)
         let product = {
             "title": title,
             "description": description,
@@ -32,15 +31,8 @@ class ProductManager{
                 if (err) {
                     console.error(err);
                 };
-                // file written successfully
                 });
 
-            // fs.appendFile(this.path, this.products, err => {
-            // if (err) {
-            //     console.error(err);
-            // }
-            // // file written successfully
-            // });
             console.log('Product added correctly');
         } else {
             console.log('Product not added as it already exists');
