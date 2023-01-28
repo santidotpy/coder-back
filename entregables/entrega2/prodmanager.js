@@ -24,19 +24,23 @@ class ProductManager{
         }
 
 
-
-
-
         if(!this.isInProducts(code)){
             this.products.push(product)
             const fs = require('fs');
 
-            fs.writeFile(this.path, this.products, err => {
-            if (err) {
-                console.error(err);
-            }
-            // file written successfully
-            });
+            fs.writeFile(this.path, JSON.stringify(this.products), 'utf-8', err => {
+                if (err) {
+                    console.error(err);
+                };
+                // file written successfully
+                });
+
+            // fs.appendFile(this.path, this.products, err => {
+            // if (err) {
+            //     console.error(err);
+            // }
+            // // file written successfully
+            // });
             console.log('Product added correctly');
         } else {
             console.log('Product not added as it already exists');
@@ -50,7 +54,18 @@ class ProductManager{
     }
 
     get getProducts(){
-        return this.products
+        //return this.products
+        const fs = require('fs');
+        //data = fs.readFile(this.path, 'utf-8')
+
+        fs.readFileSync(this.path, 'utf-8', function(err, data){
+      
+            // Display the file content
+            return JSON.parse(data)
+        });
+
+        
+        
     }
 
     getProductById(code){
@@ -65,9 +80,9 @@ class ProductManager{
   }
 
 
-  const testingThings = new ProductManager('bd.json')
+  const testingThings = new ProductManager('./prods.txt')
 
   testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
-  testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
-  console.log(testingThings.getProductById(2000))
+//   testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
+//   console.log(testingThings.getProductById(2000))
   console.log(testingThings.getProducts)

@@ -1,0 +1,1 @@
+[{"title":"coso","description":"blabla","price":100,"thumbnail":"blabla","code":1,"stock":10}]
