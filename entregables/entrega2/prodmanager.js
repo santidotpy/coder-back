@@ -52,26 +52,12 @@ class ProductManager{
 
         fs.readFileSync(this.path, 'utf-8', function(err, data){
       
-            // Display the file content
             return JSON.parse(data)
         });
-
-        
-        
     }
 
-    getProductById(code){
-        if (this.products.find(item => item.code === code) != undefined) {
-            return this.products.find(item => item.code === code)
-        } else {
-            return 'Not Found'
-        }
-    }
 
     deleteProduct(code) {
-        // if(this.products.some(prod => prod.code === code)) {
-        //     this.products.filter()
-        // }
         const fs = require('fs');
 
         if (this.products.find(item => item.code === code) != undefined) {
@@ -87,6 +73,23 @@ class ProductManager{
         }
     }
 
+    // getProductById(code){
+    //     if (this.products.find(item => item.code === code) != undefined) {
+    //         return this.products.find(item => item.code === code)
+    //     } else {
+    //         return 'Not Found'
+    //     }
+    // }
+
+    // updateProduct(code, title, description, price, thumbnail, stock){
+    //     if (this.products.find(item => item.code === code) != undefined) {
+    //         let prod =  this.products.find(item => item.code === code)
+    //         console.log(prod)
+    //     } else {
+    //         return 'Not Found'
+    //     }
+    // }
+
   }
 
 
@@ -95,7 +98,8 @@ class ProductManager{
   testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
     testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
   testingThings.deleteProduct(1)
+  testingThings.updateProduct(2)
 
 
-//   console.log(testingThings.getProductById(2000))
+  //console.log(testingThings.getProductById(2))
   console.log(testingThings.getProducts)
