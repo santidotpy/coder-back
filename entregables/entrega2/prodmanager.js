@@ -66,7 +66,25 @@ class ProductManager{
         } else {
             return 'Not Found'
         }
+    }
 
+    deleteProduct(code) {
+        // if(this.products.some(prod => prod.code === code)) {
+        //     this.products.filter()
+        // }
+        const fs = require('fs');
+
+        if (this.products.find(item => item.code === code) != undefined) {
+            this.products = this.products.find(item => item.code != code)
+            console.log('Deleted')
+            fs.writeFile(this.path, JSON.stringify(this.products), 'utf-8', err => {
+                if (err) {
+                    console.error(err);
+                };
+                });
+        } else {
+            return 'Not Found'
+        }
     }
 
   }
@@ -75,6 +93,9 @@ class ProductManager{
   const testingThings = new ProductManager('./prods.txt')
 
   testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
-//   testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
+    testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
+  testingThings.deleteProduct(1)
+
+
 //   console.log(testingThings.getProductById(2000))
   console.log(testingThings.getProducts)
