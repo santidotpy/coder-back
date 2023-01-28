@@ -93,12 +93,12 @@ class ProductManager{
   }
 
 
-  const testingThings = new ProductManager('./prods.txt')
+    const testingThings = new ProductManager('./prods.txt')
 
-  testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
+    testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
     testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
-  testingThings.deleteProduct(1)
-  testingThings.updateProduct(2)
+    testingThings.deleteProduct(1)
+    //testingThings.updateProduct(2)
 
 
   //console.log(testingThings.getProductById(2))
