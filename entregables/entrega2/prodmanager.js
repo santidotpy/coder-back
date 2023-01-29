@@ -37,8 +37,6 @@ class ProductManager{
         } else {
             console.log('Product not added as it already exists');
         }
-
-
     }
 
     isInProducts(code){
@@ -54,7 +52,6 @@ class ProductManager{
 
     deleteProduct(code) {
         const fs = require('fs');
-
         if (this.products.find(item => item.code === code) != undefined) {
             this.products = this.products.find(item => item.code != code)
             console.log('Deleted')
@@ -72,8 +69,6 @@ class ProductManager{
         const fs = require('fs');
         let text = fs.readFileSync(this.path, "utf-8");
         text = JSON.parse(text)
-        // text = text.split("{}")
-        // text.forEach(item => console.log(item));
         if (text.find(item => item.code === code) != undefined) {
             return text.find(item => item.code === code)
         } else {
