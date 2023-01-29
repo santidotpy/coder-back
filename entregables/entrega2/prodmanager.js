@@ -46,14 +46,17 @@ class ProductManager{
     }
 
     get getProducts(){
-        //return this.products
+        // //return this.products
         const fs = require('fs');
-        //data = fs.readFile(this.path, 'utf-8')
+        // //data = fs.readFile(this.path, 'utf-8')
 
-        fs.readFileSync(this.path, 'utf-8', function(err, data){
+        // fs.readFileSync(this.path, 'utf-8', function(err, data){
       
-            return JSON.parse(data)
-        });
+        //     return JSON.parse(data)
+        // });
+
+        let text = fs.readFileSync(this.path, "utf-8");
+        console.log(text)
     }
 
 
@@ -95,11 +98,12 @@ class ProductManager{
 
     const testingThings = new ProductManager('./prods.txt')
 
-    testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
-    testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
-    testingThings.deleteProduct(1)
+    //testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
+    //testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
+    testingThings.getProducts
+    //testingThings.deleteProduct(1)
     //testingThings.updateProduct(2)
 
 
   //console.log(testingThings.getProductById(2))
-  console.log(testingThings.getProducts)
+  //console.log(testingThings.getProducts)
