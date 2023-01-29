@@ -91,26 +91,17 @@ class ProductManager{
             ex.thumbnail = data == undefined ? data.thumbnail : ex.thumbnail;
             ex.stock = data == undefined ? data.stock : ex.stock;
 
-
             //console.log(ex)
             //text[objIndex] = ex
-            console.log(text)
             fs.writeFile(this.path, JSON.stringify(text), 'utf-8', err => {
                 if (err) {
                     console.error(err);
                 };
                 });
 
-
         } else {
             return 'Not Found'
         }
-        // if (this.products.find(item => item.code === code) != undefined) {
-        //     let prod =  this.products.find(item => item.code === code)
-        //     console.log('caquerman')
-        // } else {
-        //     return 'Not Found'
-        // }
     }
 
   }
@@ -126,4 +117,4 @@ class ProductManager{
 
 
     //console.log(testingThings.getProductById(2))
-  //console.log(testingThings.getProducts)
+    //console.log(testingThings.getProducts)
