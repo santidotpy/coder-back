@@ -46,17 +46,9 @@ class ProductManager{
     }
 
     get getProducts(){
-        // //return this.products
         const fs = require('fs');
-        // //data = fs.readFile(this.path, 'utf-8')
-
-        // fs.readFileSync(this.path, 'utf-8', function(err, data){
-      
-        //     return JSON.parse(data)
-        // });
-
         let text = fs.readFileSync(this.path, "utf-8");
-        console.log(text)
+        console.log(text.split("{}"))
     }
 
 
@@ -76,13 +68,18 @@ class ProductManager{
         }
     }
 
-    // getProductById(code){
-    //     if (this.products.find(item => item.code === code) != undefined) {
-    //         return this.products.find(item => item.code === code)
-    //     } else {
-    //         return 'Not Found'
-    //     }
-    // }
+    getProductById(code){
+        const fs = require('fs');
+        let text = fs.readFileSync(this.path, "utf-8");
+        text = JSON.parse(text)
+        // text = text.split("{}")
+        // text.forEach(item => console.log(item));
+        if (text.find(item => item.code === code) != undefined) {
+            return text.find(item => item.code === code)
+        } else {
+            return 'Not Found'
+        }
+    }
 
     // updateProduct(code, title, description, price, thumbnail, stock){
     //     if (this.products.find(item => item.code === code) != undefined) {
@@ -100,10 +97,10 @@ class ProductManager{
 
     //testingThings.addProduct('coso', 'blabla', 100, 'blabla', 10)
     //testingThings.addProduct('coso', 'blabla', 100, 'blabla', 20)
-    testingThings.getProducts
+    //testingThings.getProducts
     //testingThings.deleteProduct(1)
     //testingThings.updateProduct(2)
 
 
-  //console.log(testingThings.getProductById(2))
+    console.log(testingThings.getProductById(2))
   //console.log(testingThings.getProducts)
