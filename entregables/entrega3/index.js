@@ -8,8 +8,19 @@ const productos = new ProductManager();
 
 
 app.get('/products', async (req, res) => {
-    console.log('All products:')
-    res.send(productos.getProducts())
+    const allProducts = await productos.getProducts()
+    let limite = parseInt(req.query.limit)
+    if(limite){
+        console.log(`Displaying ${limite} products`)
+        for (let key in allProducts) {
+            if(key < limite){
+            console.log(allProducts[key]);
+            }
+        }
+    } else{
+        console.log('All products: ', allProducts)
+        res.send(productos.getProducts())
+    }
 })
 
 app.get('/products/:id', async (req, res) => {
