@@ -8,7 +8,13 @@ const productos = new ProductManager();
 
 
 app.get('/products', async (req, res) => {
+    console.log('All products:')
     res.send(productos.getProducts())
+})
+
+app.get('/products/:id', async (req, res) => {
+    console.log(`Producto con id: ${req.params.id}`)
+    res.send(productos.getProductsById(parseInt(req.params.id)))
 })
 
 app.listen(PORT, () => {
