@@ -1,125 +1,104 @@
 import { promises as fs } from "fs";
 
 
-class ProductManager {
+export class ProductManager {
 
     constructor() {
    
-     this.products = [];
-   
-     this.path = "./products.txt";
+        this.products = [];
+        this.path = "./products.txt";
    
     }
-   
    
    
     static id = 0;
    
    
-   
     writeProducts = async products => {
    
-     await fs.writeFile(this.path, JSON.stringify(products), error => {
+        await fs.writeFile(this.path, JSON.stringify(products), error => {
    
-      if (error) throw error;
+        if (error) throw error;
    
-     });
+    });
    
     };
-   
-   
+    
    
     readProducts = async () => {
    
-     let allProducts = await fs.readFile(this.path, "utf-8");
+        let allProducts = await fs.readFile(this.path, "utf-8");
    
-     return JSON.parse(allProducts);
+        return JSON.parse(allProducts);
    
     };
-   
    
    
     addProduct = async (title, description, price, thumbnail, code, stock) => {
    
-     let newProduct = {
-   
-      title,
-   
-      description,
-   
-      price,
-   
-      thumbnail,
-   
-      code,
-   
-      stock,
-   
-     };
+        let newProduct = {
+                        title,
+                        description,
+                        price,
+                        thumbnail,
+                        code,
+                        stock,
+                    };
    
    
+        ProductManager.id++;
    
-     ProductManager.id++;
+        this.products.push({
    
-     this.products.push({
+        ...newProduct,
    
-      ...newProduct,
+        id: ProductManager.id,
    
-      id: ProductManager.id,
-   
-     });
-   
+    });
    
    
-     await this.writeProducts(this.products);
+        await this.writeProducts(this.products);
    
     };
    
-   
-   
+    
     getProducts = async () => {
    
-     let productsAll = await this.readProducts();
-   
-     console.log(productsAll);
+        let productsAll = await this.readProducts();
+        //console.log(productsAll);
+        return productsAll
    
     };
-   
-   
+    
    
     exist = async id => {
    
-     let productsAll = await this.readProducts();
-   
-     return productsAll.find(product => product.id === id);
+        let productsAll = await this.readProducts();
+        return productsAll.find(product => product.id === id);
    
     };
    
-   
-   
+    
     getProductsById = async id => {
    
-     (await this.exist(id))
+        (await this.exist(id))
    
-      ? console.log(await this.exist(id))
-   
-      : console.log("Product Not Found");
+        ? console.log(await this.exist(id))
+        : console.log("Product Not Found");
    
     };
-   
    
    
     updateProduct = async ({ id, ...produt }) => {
    
-     if ((await this.deleteProducts(id)) === false) {
+        if ((await this.deleteProducts(id)) === false) {
    
-      console.log("The product you are trying to modify does not exist");
+        console.log("The product you are trying to modify does not exist");
    
-     } else {
+    } else {
    
-      let prod = await this.readProducts();
-   
-      let modifiedProducts = [
+        let prod = await this.readProducts();
+        let modifiedProducts = [
    
        {
    
@@ -133,39 +112,36 @@ class ProductManager {
    
       ];
    
-      await this.writeProducts(modifiedProducts);
+        await this.writeProducts(modifiedProducts);
    
-      console.log("Product successfully modified");
+        console.log("Product successfully modified");
    
      }
    
     };
-   
    
    
     deleteProducts = async id => {
    
-     if (await this.exist(id)) {
+        if (await this.exist(id)) {
    
-      let products = await this.readProducts();
+            let products = await this.readProducts();
+            let filterProducts = products.filter(prod => prod.id != id);
    
-      let filterProducts = products.filter(prod => prod.id != id);
+            await this.writeProducts(filterProducts);
    
-      await this.writeProducts(filterProducts);
+        } else {
    
-     } else {
+            console.log("Product Not Found");
    
-      console.log("Product Not Found");
+            return false;
    
-      return false;
-   
-     }
+        }
    
     };
    
    }
-   
-   
+     
    
    const productos = new ProductManager();
    
@@ -177,14 +153,20 @@ class ProductManager {
    
    // Add products
 
-   productos.addProduct('titulo1',              // title
-                        'description1',         // description
-                        2000,                   // price
-                        'thumbnail1',           // thumbnail
-                        2550,                   // code
-                        200);                   // stock
+    // productos.addProduct(   'titulo1',              // title
+    //                         'description1',         // description
+    //                         2000,                   // price
+    //                         'thumbnail1',           // thumbnail
+    //                         2550,                   // code
+    //                         200);                   // stock
    
-   
+    // productos.addProduct(   'titulo2',              // title
+    //                         'description2',         // description
+    //                         2000,                   // price
+    //                         'thumbnail2',           // thumbnail
+    //                         2560,                   // code
+    //                         200);                   // stock
+
    // Consult all existing products
    
    //productos.getProducts();
@@ -193,7 +175,7 @@ class ProductManager {
    
    // Query a product by id
    
-   //productos.getProductsById(2);
+   // productos.getProductsById(1);
    
    
    
