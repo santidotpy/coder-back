@@ -12,7 +12,7 @@ app.get('/products', async (req, res) => {
     let limite = parseInt(req.query.limit)
     if(limite){
         let products = []
-        console.log(`Displaying ${limite} products`)
+        //console.log(`Displaying ${limite} products`)
         for (let key in allProducts) {
             if(key < limite){
                 //console.log(allProducts[key]);
