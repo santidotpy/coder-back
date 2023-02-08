@@ -159,14 +159,7 @@ export class ProductManager {
     //                         'thumbnail1',           // thumbnail
     //                         2550,                   // code
     //                         200);                   // stock
-   
-    // productos.addProduct(   'titulo2',              // title
-    //                         'description2',         // description
-    //                         2000,                   // price
-    //                         'thumbnail2',           // thumbnail
-    //                         2560,                   // code
-    //                         200);                   // stock
-
+     
    // Consult all existing products
    
    //productos.getProducts();
