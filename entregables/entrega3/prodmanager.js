@@ -81,10 +81,11 @@ export class ProductManager {
     
     getProductsById = async id => {
    
-        (await this.exist(id))
-   
-        ? console.log(await this.exist(id))
-        : console.log("Product Not Found");
+        if (await this.exist(id)) {
+            return await this.exist(id)
+        } else {
+            return `Product with id ${id} not found`
+        }
    
     };
    
@@ -144,7 +145,6 @@ export class ProductManager {
      
    
    const productos = new ProductManager();
-   
    
    
    /* Tests */

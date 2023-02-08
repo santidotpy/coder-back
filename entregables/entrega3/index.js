@@ -27,8 +27,8 @@ app.get('/products', async (req, res) => {
 })
 
 app.get('/products/:id', async (req, res) => {
-    console.log(`Producto con id: ${req.params.id}`)
-    res.send(productos.getProductsById(parseInt(req.params.id)))
+    const productsById = await productos.getProductsById(parseInt(req.params.id))
+    res.send(productsById)
 })
 
 app.listen(PORT, () => {
