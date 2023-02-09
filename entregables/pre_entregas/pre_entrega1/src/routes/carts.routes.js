@@ -15,4 +15,12 @@ routerCart.get('/carts/:cid', async (req, res) => {
     res.send(productsByCid)
 })
 
+// routerCart.post('/carts/:cid/product/:pid', async (req, res) => {
+//     //console.log(req.body)       // esto debe pushearse a un array
+
+//     const coso = await cartmanager.addProductToCartById({"cid": parseInt(req.params.cid), "pid": parseInt(req.params.pid)})
+//     console.log(coso)
+//     res.send('ok')
+// })
+
 export default routerCart
