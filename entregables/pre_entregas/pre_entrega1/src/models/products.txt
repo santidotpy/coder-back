@@ -1,0 +1,1 @@
+[{"title":"XBOX","description":"fulbo","price":2500,"code":2465,"stock":28,"status":true,"category":"categoria","thumbnail":[],"id":1},{"title":"PS5","description":"sony ps5","price":3000,"code":5465,"stock":5,"status":true,"category":"videogames","thumbnail":[],"id":2}]
