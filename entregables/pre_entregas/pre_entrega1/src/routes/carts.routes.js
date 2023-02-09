@@ -10,4 +10,9 @@ routerCart.post('/carts', async (req, res) => {
     res.send('ok')
 })
 
+routerCart.get('/carts/:cid', async (req, res) => {
+    const productsByCid = await cartmanager.getCartById(parseInt(req.params.cid))
+    res.send(productsByCid)
+})
+
 export default routerCart

@@ -61,6 +61,24 @@ export class CartManager {
     };
    
    
+    exist = async id => {
+   
+        let productsAll = await this.readCarts();
+        return productsAll.find(cart => cart.id === id);
+   
+    };
+   
+    
+    getCartById = async id => {
+   
+        if (await this.exist(id)) {
+            return await this.exist(id)
+        } else {
+            return `Cart with id ${id} not found`
+        }
+   
+    };
+
    }
      
    
