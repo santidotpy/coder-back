@@ -80,29 +80,33 @@ export class CartManager {
    
     };
 
-    // getProductById = async prods => {
-   
-    //     if (true) {
-    //         return prods.find(produ => produ.id === this.pid);
-    //     } else {
-    //         return `Product with id ${id} not found`
-    //     }
-   
-    // };
-    // // work in progress
-    // addProductToCartById = async obj => {
-   
-    //     let carts = await this.readCarts();
-    //     let cartbyid = await this.getCartById(obj.cid)
-    //     //console.log(cartbyid.find(p => p.id === obj.pid))
-    //     this.pid = obj.pid
-    //     let productitos = this.getCartById(cartbyid)
 
-    //     let prods = await this.getProductById(cartbyid.products)
-    //     //console.log(productsAll);
-    //     return prods
+
+
+    addProductToCartById = async (obj, cid, pid) => {
+        // tomo el id de la url
+        /*  enviando esto por la request
+        {
+		    "id": 0,
+		    "quantity": 1
+        }
+        */ 
    
-    // };
+        let cartbyid = await this.getCartById(cid)
+        let products = cartbyid.products
+        const found = products.find(el => el.id === pid);
+        
+        if (!found) products.push({ id: pid, quantity: obj.quantity });
+        else {
+            let objIndex = cartbyid.products.findIndex((ob => ob.id == pid));
+            cartbyid.products[objIndex].quantity += obj.quantity
+
+        }
+
+        return cartbyid
+    };
+
+
 
    }
      
