@@ -1,0 +1,12 @@
+<div>
+    <h1>Products:</h1>
+    <p>{{ productsStringify }}</p>
+    {{#each products }}
+    <div>
+        <h5>{{this.title}}</h5>
+        <p>{{this.description}}</p>
+        <p>Price: $ {{this.price}}</p>
+        <p>Stock: {{this.stock}}</p>
+    </div>
+    {{/each }}
+</div>

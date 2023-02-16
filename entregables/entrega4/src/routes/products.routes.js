@@ -20,6 +20,19 @@ router.get('/products', async (req, res) => {
     }
 })
 
+router.get('/hbs/products', async (req, res) => {
+    const allProducts = await prodmanager.getProducts()
+    res.render('home', { 
+        title: 'Products',
+        products: allProducts,
+        productsStringify: JSON.stringify(allProducts)
+        //products: JSON.stringify(allProducts)
+    })
+})
+
+// router.get('/hbs/realtimeproducts', async (req, res) => {
+// })
+
 router.get('/products/:id', async (req, res) => {
     const productsById = await prodmanager.getProductsById(parseInt(req.params.id))
     res.send(productsById)
