@@ -1,14 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+<div>
+    {{productsStringify}}
+</div>
 
-    {{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js" integrity="sha512-rwu37NnL8piEGiFhe2c5j4GahN+gFsIn9k/0hkRY44iz0pc81tBNaUN56qF8X4fy+5pgAAgYi2C9FXdetne5sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-</body>
-</html>
+<form id="form">
+	<label for='title'>Title</label>
+	<input class="spacing" type='text' name='title' id='title' />
+    <label for='description'>Description</label>
+    <input class="spacing" type='text' name='description' id='description' />
+	<label for='price'>Price</label>
+	<input class="spacing" type='number' name='price' id='price' />
+    <label for='code'>Code</label>
+    <input class="spacing" type='number' name='code' id='code' />
+    <label for='stock'>Stock</label>
+    <input class="spacing" type='number' name='stock' id='stock' />
+    <label for='status'>Status</label>
+    <select class="spacing" name="trueOrFalse" id="trueOrFalse" placeholder="status">
+        <option value="true">true</option>
+        <option value="false">false</option>
+    </select>
+    <label for='category'>Category</label>
+    <input class="spacing" type='text' name='category' id='category' />
+	<label for='price'>Thumbnail</label>
+	<input class="spacing" type='text' name='thumbnail' id='thumbnail' />
+	<input type='submit' value='submit' />
+</form>
+
+<form id="form2">
+    <h3>Delete</h3>
+	<label for='iden'>ID</label>
+	<input class="spacing" type='number' name='iden' id='iden' />
+    <input type='submit' value='delete' />
+</form>
+
