@@ -1,7 +1,9 @@
-<div>
+{{!-- <div>
     {{productsStringify}}
-</div>
+</div> --}}
 
+<a href="/"><button type="button" class="btn btn-primary m-1">To main</button></a>
+<div class="container">
 <form id="form">
 	<label for='title'>Title</label>
 	<input class="spacing" type='text' name='title' id='title' />
@@ -25,10 +27,28 @@
 	<input type='submit' value='submit' />
 </form>
 
-<form id="form2">
+<form id="form2" class="my-4">
     <h3>Delete</h3>
 	<label for='iden'>ID</label>
 	<input class="spacing" type='number' name='iden' id='iden' />
     <input type='submit' value='delete' />
 </form>
 
+
+<div>
+    <h1>Products:</h1>
+    <p>{{ productsStringify }}</p>
+    {{#each products }}
+    <div>
+        <h4>{{this.title}}</h4>
+        <p>{{this.description}}</p>
+        <p>Price: $ {{this.price}}</p>
+        {{!-- <p>Stock: {{this.stock}}</p> --}}
+    </div>
+    {{/each }}
+    <div id="prods">
+    </div>
+</div>
+
+
+</div>

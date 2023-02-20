@@ -1,9 +1,12 @@
+
+<a href="/static/realtimeproducts"><button type="button" class="btn btn-primary m-1">To real time products</button></a>
+
 <div>
     <h1>Products:</h1>
     <p>{{ productsStringify }}</p>
     {{#each products }}
     <div>
-        <h5>{{this.title}}</h5>
+        <h4>{{this.title}}</h4>
         <p>{{this.description}}</p>
         <p>Price: $ {{this.price}}</p>
         <p>Stock: {{this.stock}}</p>
