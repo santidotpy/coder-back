@@ -32,6 +32,15 @@ form.addEventListener('submit', (e) => {
     }
     console.log(product)
     socket.emit('add-product', product)
+    newprod(product)
+
+    titleInput.value = ''
+    descriptionInput.value = ''
+    priceInput.value = ''
+    codeInput.value = ''
+    stockInput.value = ''
+    categoryInput.value = ''
+    thumbnailInput.value = ''
 
 })
 
@@ -43,3 +52,14 @@ form2.addEventListener('submit', (e) => {
 
     socket.emit('delete-product', product)
 })
+
+
+const newprod = (product) => {
+    let display = `
+    <div>
+    <h4>${product.title}</h4>
+    <p>${product.description}</p>
+    <p>Price: $ ${product.price}</p>
+    </div>`
+    document.getElementById('prods').innerHTML = display
+}
