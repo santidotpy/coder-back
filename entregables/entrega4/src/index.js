@@ -10,7 +10,7 @@ import { ProductManager } from './controllers/prodmanager.js'
 
 
 const app = express()
-const PORT = 4000
+const PORT = 8080
 const server = app.listen(PORT, () => {
     console.log(`Server online on port: ${PORT}`)
 })
@@ -36,13 +36,7 @@ app.set("views", path.resolve(__dirname, "./views")) // seteo la carpeta donde e
 io.on('connection', (socket) => { // aca tendria que recibir el productos
     console.log('New client connected: ', socket.id)
 
-    // socket.on('message', (data) => {
-    //     console.log(data)
-    //     })
-
-    // socket.emit('message2', 'Hello from server')
-
-    socket.on('disconnect', (socket) => {
+    socket.on('disconnect', () => {
         console.log('Client disconnected: ', socket.id)
     
     })
@@ -63,9 +57,11 @@ io.on('connection', (socket) => { // aca tendria que recibir el productos
     socket.on('delete-product', async (product) => {
         const deleted = await prodSocket.deleteProducts(product.id)
         if (deleted) {
+            console.log(`Product ${product.id} deleted`)
             io.emit('delete-product', product)
+
         } else {
-            console.log('No se pudo eliminar el producto')
+            console.log('Something went wrong')
         }
         io.emit('delete-product', product)
     })
@@ -80,13 +76,21 @@ app.use('/static', express.static(__dirname + '/public'))
 app.use('/api', router)
 app.use('/api', routerCart)
 
+app.get('/', async (req, res) => {
+    const allProducts = await prodSocket.getProducts()
+    res.status(200).render('home', {
+        title: 'Home',
+        products: allProducts,
+        productsStringify: JSON.stringify(allProducts)
+    })
+})
 
 
-
-app.get('/static/realtime', async (req, res) => {
+app.get('/static/realtimeproducts', async (req, res) => {
     const allProducts = await prodSocket.getProducts()
 
     res.render('realTimeProducts', { 
+        title: 'Real Time Products',
         products: allProducts,
         productsStringify: JSON.stringify(allProducts)
 
