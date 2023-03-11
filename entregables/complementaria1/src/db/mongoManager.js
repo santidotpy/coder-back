@@ -11,8 +11,8 @@ export class mongoManager {
 
   async #connect() {
     try {
-      await mongoose.connect(this.url);
-      console.log("MongoDB connected");
+      await mongoose.connect(this.#url);
+      console.log("✅ MongoDB connected");
     } catch (error) {
       console.log("Something went wrong during connection", error);
     }
