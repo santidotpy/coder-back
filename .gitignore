@@ -4,5 +4,5 @@ entregables/entrega3/node_modules
 entregables/entrega3/justtext.txt
 node_modules
 package-lock.json
-
+.env
 entregables/pre_entregas/pre_entrega1/node_modules
