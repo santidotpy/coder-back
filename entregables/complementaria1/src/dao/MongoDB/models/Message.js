@@ -1,10 +1,11 @@
 import { mongoManager } from "../../../db/mongoManager";
+import { Schema } from "mongoose";
 
-const schema = {
-  name: { type: String, required: true, max: 50 },
-  email: { type: String, required: true, max: 50 },
-  message: { type: String, required: true, max: 140 },
-};
+const schema = new Schema({
+  name: { type: String, required: true, max: 70 },
+  email: { type: String, required: true, max: 254, unique: true },
+  message: { type: String, required: true, max: 280 },
+});
 
 export class MessageMongo extends mongoManager {
   constructor() {

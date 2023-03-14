@@ -1,6 +1,7 @@
 import { mongoose } from "mongoose";
 
 export class mongoManager {
+  
   #url; // private property
   constructor(url, collection, schema) {
     this.#url = url;
