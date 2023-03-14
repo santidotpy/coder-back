@@ -25,6 +25,10 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 
+
+// static files
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(express.urlencoded({ extended: true }));
 
 const server = app.listen(app.get("port"), () =>
