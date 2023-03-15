@@ -6,5 +6,9 @@ routerMsg.get("/", (req, res) => {
   res.render("index");
 });
 
+routerMsg.get("/chat", (req, res) => {
+  res.render("chat");
+});
+
 export default routerMsg;
 
