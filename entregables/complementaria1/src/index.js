@@ -25,12 +25,12 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 
-
 // static files
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.urlencoded({ extended: true }));
 
+// socekts
 const server = app.listen(app.get("port"), () =>
   console.log(`Server on port ${app.get("port")}`)
 );
@@ -38,6 +38,8 @@ const server = app.listen(app.get("port"), () =>
 const io = new Server(server);
 
 io.on("connection", async (socket) => {
+  console.log("New connection:", socket.id);
+
   socket.on("message", async (info) => {
     const data = await getManagerMessage();
     const managerMessage = new data.ManagerMessageMongoDB();
@@ -48,6 +50,15 @@ io.on("connection", async (socket) => {
       });
     });
   });
+
+  socket.on("chat-message", async (data) => {
+    //console.log(data);
+    io.sockets.emit("chat-message", data);
+  });
+
+  socket.on("chat-typing", (data) => {
+    socket.broadcast.emit("chat-typing", data);
+  });
 });
 
-app.use("/api", routerMsg);
+app.use(routerMsg);
