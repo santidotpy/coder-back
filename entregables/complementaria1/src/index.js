@@ -3,13 +3,15 @@ import express from "express";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import __dirname from "./path.js";
-import path from "path";
+import path, { format } from "path";
 
-import { getManagerMessage } from "./dao/daoManager.js";
+//import { getManagerMessage } from "./dao/daoManager.js";
+import { MessageMongo } from "./dao/MongoDB/models/Message.js";
 import routerMsg from "./routes/msg.routes.js";
 
 // inicializaciones
 const app = express();
+const managerMessage = new MessageMongo();
 
 app.set("port", process.env.PORT || 5000);
 app.use(express.json());
@@ -52,7 +54,11 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("chat-message", async (data) => {
-    //console.log(data);
+    // console.log(data);
+    //save to db
+    managerMessage.addElements([
+      { username: data.username, message: data.message, email: data.email },
+    ]);
     io.sockets.emit("chat-message", data);
   });
 
