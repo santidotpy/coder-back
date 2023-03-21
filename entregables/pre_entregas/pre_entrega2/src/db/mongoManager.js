@@ -1,7 +1,6 @@
 import { mongoose } from "mongoose";
 
 export class mongoManager {
-  
   #url; // private property
   constructor(url, collection, schema) {
     this.#url = url;
@@ -31,7 +30,9 @@ export class mongoManager {
   async getElements() {
     this.#connect();
     try {
-      return await this.model.find();
+      // lean() retorna un objeto plano,
+      // esto ayuda a vizualizarlo mas facilmente con handlebars
+      return await this.model.find().lean();
     } catch (error) {
       console.log("Something went wrong ", error);
     }
