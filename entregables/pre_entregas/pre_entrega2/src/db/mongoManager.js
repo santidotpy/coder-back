@@ -1,4 +1,5 @@
 import { mongoose } from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 export class mongoManager {
   #url; // private property
@@ -6,6 +7,7 @@ export class mongoManager {
     this.#url = url;
     this.collection = collection;
     this.schema = new mongoose.Schema(schema);
+    this.schema.plugin(mongoosePaginate);
     this.model = mongoose.model(collection, this.schema);
   }
 
@@ -27,12 +29,26 @@ export class mongoManager {
   //     }
   // }
 
-  async getElements() {
+  // async getElements() {
+  //   this.#connect();
+  //   try {
+  //     // lean() retorna un objeto plano,
+  //     // esto ayuda a vizualizarlo mas facilmente con handlebars
+  //     return await this.model.find().lean();
+  //   } catch (error) {
+  //     console.log("Something went wrong ", error);
+  //   }
+  // }
+  
+  async getElements(page = 1, limit = 8) {
     this.#connect();
     try {
-      // lean() retorna un objeto plano,
-      // esto ayuda a vizualizarlo mas facilmente con handlebars
-      return await this.model.find().lean();
+      const options = {
+        page: page,
+        limit: limit,
+        lean: true,
+      };
+      return await this.model.paginate({}, options);
     } catch (error) {
       console.log("Something went wrong ", error);
     }
