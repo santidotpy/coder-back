@@ -39,15 +39,17 @@ export class mongoManager {
   //     console.log("Something went wrong ", error);
   //   }
   // }
-  
-  async getElements(page = 1, limit = 8) {
+
+  async getElements(page = 1, limit = 8, sort = "asc") {
     this.#connect();
+    const sortDirection = sort === "desc" ? -1 : 1;
+    const options = {
+      page,
+      limit,
+      lean: true,
+      sort: { price: sortDirection },
+    };
     try {
-      const options = {
-        page: page,
-        limit: limit,
-        lean: true,
-      };
       return await this.model.paginate({}, options);
     } catch (error) {
       console.log("Something went wrong ", error);

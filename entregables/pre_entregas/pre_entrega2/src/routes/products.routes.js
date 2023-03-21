@@ -12,7 +12,8 @@ routerProd.get("/", (req, res) => {
 routerProd.get("/products", async (req, res) => {
   const page = req.query.page || 1;
   const limit = req.query.limit || 8;
-  const products = await managerProduct.getElements(page, limit);
+  const sort = req.query.sort || "asc";
+  const products = await managerProduct.getElements(page, limit, sort);
   //console.log(products);
   res.render("products/all-products", {
     title: "Products",
