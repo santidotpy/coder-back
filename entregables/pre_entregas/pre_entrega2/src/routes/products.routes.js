@@ -11,7 +11,7 @@ routerProd.get("/", (req, res) => {
 
 routerProd.get("/products", async (req, res) => {
   const allProducts = await managerProduct.getElements();
-  res.send(allProducts);
+  //res.send(allProducts);
   res.render("products/all-products", { title: "Products", products: allProducts });
 });
 
