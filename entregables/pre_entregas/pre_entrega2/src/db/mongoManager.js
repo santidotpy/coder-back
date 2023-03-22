@@ -14,7 +14,7 @@ export class mongoManager {
   async #connect() {
     try {
       await mongoose.connect(this.#url);
-      console.log("✅ MongoDB connected");
+      console.log("✅ Database connected");
     } catch (error) {
       console.log("Something went wrong during connection", error);
     }
@@ -50,7 +50,10 @@ export class mongoManager {
       sort: { price: sortDirection },
     };
     try {
-      return await this.model.paginate({}, options);
+      const elements = await this.model.paginate({}, options);
+      elements.status = 200;
+      return elements;
+      //return await this.model.paginate({}, options);
     } catch (error) {
       console.log("Something went wrong ", error);
     }
@@ -59,7 +62,7 @@ export class mongoManager {
   async getElementById(id) {
     this.#connect();
     try {
-      return await this.model.findById(id);
+      return await this.model.findById(id).lean(); // lean() retorna un objeto plano
     } catch (error) {
       console.log(`Something went wrong with element ${id}`, error);
     }
