@@ -1,4 +1,4 @@
-import { mongoManager } from "../../../db/mongoManager";
+import { mongoManager } from "../../../db/mongoManager.js";
 
 const schema = {
   products: { type: Array },
