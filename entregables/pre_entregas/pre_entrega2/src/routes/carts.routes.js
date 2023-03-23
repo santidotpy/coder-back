@@ -54,14 +54,14 @@ routerCart.post("/cart/:id", async (req, res) => {
 
 // DELETE para eliminar todos los productos del carrito
 routerCart.delete("/cart/:cid", async (req, res) => {
-    const cartId = req.params.cid;
-    const deletedCart = await managerCart.deleteProductsCart(cartId);
-    console.log(`${cartId} deleted`);
-    res.render("cart/cart", {
-      title: "Carts",
-      carts: JSON.stringify(deletedCart),
-    });
+  const cartId = req.params.cid;
+  const deletedCart = await managerCart.deleteProductsCart(cartId);
+  console.log(`${cartId} deleted`);
+  res.render("cart/cart", {
+    title: "Carts",
+    carts: JSON.stringify(deletedCart),
   });
+});
 
 // PUT para actualizar productos del carrito
 routerCart.put("/cart/:cid", async (req, res) => {
@@ -77,31 +77,30 @@ routerCart.put("/cart/:cid", async (req, res) => {
 
 // PUT para actualizar productos del carrito
 routerCart.put("/cart/:cid/product/:pid", async (req, res) => {
-    const { id } = req.params.cid;
-    const { id_prod } = req.params.pid;
-    const { quantity } = req.body;
-    try {
-        const product = await managerCart.updateProductCart(id, { id_prod, quantity })
+  const { id } = req.params.cid;
+  const { id_prod } = req.params.pid;
+  const { quantity } = req.body;
+  try {
+    const product = await managerCart.updateProductCart(id, {
+      id_prod,
+      quantity,
+    });
 
-        if (product) {
-            return res.status(200).json({
-                message: "Producto actualizado"
-            })
-        }
-
-        res.status(200).json({
-            message: "Producto no encontrado"
-        })
-
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
+    if (product) {
+      return res.status(200).json({
+        message: "Producto actualizado",
+      });
     }
 
+    res.status(200).json({
+      message: "Producto no encontrado",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 });
-
-
 
 // DELETE para eliminar productos del carrito
 routerCart.delete("/carts/product/:pid", async (req, res) => {
