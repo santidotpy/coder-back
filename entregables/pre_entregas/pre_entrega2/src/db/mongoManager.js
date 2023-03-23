@@ -11,7 +11,7 @@ export class mongoManager {
     this.model = mongoose.model(collection, this.schema);
   }
 
-  async #connect() {
+  async connect() {
     try {
       await mongoose.connect(this.#url);
       console.log("✅ Database connected");
@@ -41,7 +41,7 @@ export class mongoManager {
   // }
 
   async getElements(page = 1, limit = 8, sort = "asc") {
-    this.#connect();
+    this.connect();
     const sortDirection = sort === "desc" ? -1 : 1;
     const options = {
       page,
@@ -60,7 +60,7 @@ export class mongoManager {
   }
 
   async getElementById(id) {
-    this.#connect();
+    this.connect();
     try {
       return await this.model.findById(id).lean(); // lean() retorna un objeto plano
     } catch (error) {
@@ -78,7 +78,7 @@ export class mongoManager {
 
   // agrego 1 o varios elementos
   async addElements(data) {
-    this.#connect();
+    this.connect();
     try {
       return await this.model.insertMany(data);
     } catch (error) {
@@ -87,7 +87,7 @@ export class mongoManager {
   }
 
   async updateElement(id, data) {
-    this.#connect();
+    this.connect();
     try {
       return await this.model.findByIdAndUpdate(id, data);
     } catch (error) {
@@ -96,7 +96,7 @@ export class mongoManager {
   }
 
   async deleteElement(id) {
-    this.#connect();
+    this.connect();
     try {
       return await this.model.findByIdAndRemove(id);
     } catch (error) {
