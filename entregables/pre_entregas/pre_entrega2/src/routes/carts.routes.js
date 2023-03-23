@@ -76,12 +76,12 @@ routerCart.put("/cart/:cid", async (req, res) => {
 });
 
 // PUT para actualizar productos del carrito
-routerCart.put("/cart/:cid/product/:pid", async (req, res) => {
-  const { id } = req.params.cid;
-  const { id_prod } = req.params.pid;
+routerCart.put("/cart/:cid/product", async (req, res) => {
+  const { cid } = req.params;
+  const { id_prod } = req.body;
   const { quantity } = req.body;
   try {
-    const product = await managerCart.updateProductCart(id, {
+    const product = await managerCart.updateProductCart(cid, {
       id_prod,
       quantity,
     });
@@ -104,9 +104,9 @@ routerCart.put("/cart/:cid/product/:pid", async (req, res) => {
 
 // DELETE para eliminar productos del carrito
 routerCart.delete("/carts/product/:pid", async (req, res) => {
-  const { id } = req.params;
+    const { pid } = req.params;
   try {
-    const product = await managerCart.deleteProductCart(id);
+    const product = await managerCart.deleteProductCart(pid);
     console.log(product);
 
     if (product) {
