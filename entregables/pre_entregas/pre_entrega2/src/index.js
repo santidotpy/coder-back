@@ -8,6 +8,7 @@ import path, { format } from "path";
 import { ProductMongo } from "./dao/MongoDB/models/Product.js";
 import routerProd from "./routes/products.routes.js";
 import routerCart from "./routes/carts.routes.js";
+import routerAuth from "./routes/auth.routes.js";
 
 // inicializaciones
 const app = express();
@@ -47,3 +48,4 @@ io.on("connection", async (socket) => {
 
 app.use("/api", routerProd);
 app.use("/api", routerCart);
+app.use("/auth", routerAuth);
