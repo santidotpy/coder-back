@@ -9,7 +9,7 @@
       <div class="card border border-primary">
         <div class="card-body">
           <h1 class="mb-4">Sign Up</h1>
-          <form>
+          <form method="POST">
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
               <input
@@ -17,6 +17,8 @@
                 class="form-control border border-primary-subtle"
                 id="name"
                 placeholder="John"
+                name="name"
+                value="{{name}}"
                 required
               />
             </div>
@@ -28,6 +30,8 @@
                 id="email"
                 aria-describedby="emailHelp"
                 placeholder="example@mail.com"
+                name="email"
+                value="{{email}}"
                 required
               />
               <div id="emailHelp" class="form-text">We'll never share your email
@@ -40,6 +44,7 @@
                 class="form-control border border-primary-subtle"
                 id="password"
                 placeholder="********"
+                name="password"
                 required
               />
             </div>
@@ -50,6 +55,7 @@
                 class="form-control border border-primary-subtle"
                 id="confirm-password"
                 placeholder="********"
+                name="confirm_password"
                 required
               />
             </div>
