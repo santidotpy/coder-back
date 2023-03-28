@@ -6,6 +6,11 @@ import __dirname from "./path.js";
 import path, { format } from "path";
 
 import { ProductMongo } from "./dao/MongoDB/models/Product.js";
+
+import cookieParser from "cookie-parser";
+import MongoStore from "connect-mongo";
+import session from "express-session";
+
 import routerProd from "./routes/products.routes.js";
 import routerCart from "./routes/carts.routes.js";
 import routerAuth from "./routes/auth.routes.js";
@@ -16,6 +21,24 @@ const app = express();
 
 app.set("port", process.env.PORT || 5000);
 app.use(express.json());
+
+// COOKIES
+app.use(cookieParser(process.env.SIGNED_COOKIE));
+app.use(
+  session({
+    secret: process.env.SECRET_SESSION,
+    resave: true,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGOURL,
+      mongoOptions: {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+    }),
+  })
+);
+
 app.set("views", path.join(__dirname, "views"));
 app.engine(
   ".hbs",
@@ -42,8 +65,6 @@ const io = new Server(server);
 
 io.on("connection", async (socket) => {
   console.log("New connection:", socket.id);
-
-  
 });
 
 app.use("/api", routerProd);
