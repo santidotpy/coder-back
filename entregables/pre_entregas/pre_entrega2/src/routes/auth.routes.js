@@ -1,39 +1,84 @@
 import { Router } from "express";
+import { UserMongo } from "../dao/MongoDB/models/User.js";
 
 const routerAuth = Router();
+const managerUser = new UserMongo();
 
 routerAuth.get("/signup", (req, res) => {
   res.render("auth/signup");
 });
 
-routerAuth.post("/signup", (req, res) => {
-  res.send("signup");
+routerAuth.post("/signup", async (req, res) => {
+  const errors = [];
+  const { name, email, password } = req.body;
+  console.log(email);
+  if (password.length < 8) {
+    errors.push({ text: "Password must be at least 8 characters" });
+  }
+  if (errors.length > 0) {
+    res.render("auth/signup", {
+      errors,
+      name,
+      email,
+    });
+  } else {
+    const emailUser = await managerUser.getUserByEmail(email);
+    if (emailUser) {
+      errors.push({ text: "The Email is already in use." });
+      res.render("auth/signup", {
+        errors,
+        name,
+      });
+    } else {
+      await managerUser.addElements([
+        {
+          name,
+          email,
+          password,
+        },
+      ]);
+      res.redirect("/auth/login");
+    }
+  }
 });
 
 routerAuth.get("/login", (req, res) => {
+  if (req.session.login) {
+    res.redirect("../api/products");
+  } else {
   res.render("auth/login");
+  }
 });
 
 routerAuth.post("/login", (req, res) => {
   const { email, password } = req.body;
-  if (email === "mail@mail.com" && password === "password123") {
-    // if user is logged in
+  try {
+    if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
+      // if user is logged in
 
-    //req.session.login = true;
-    res.redirect("../api/products");
-  } else {
-    // if user is not logged in
-    res.render("auth/login");
+      req.session.login = true;
+      res.redirect("../api/products");
+    } else {
+      // if user is not logged in
+      res.render("auth/login");
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
 });
 
 routerAuth.get("/logout", (req, res) => {
-  // if (req.session.login) {
-  //   req.session.destroy(() => {
-  //     res.redirect("api/login");
-  //   });
-  // }
-  res.send("logout");
+  if (req.session.login) {
+    req.session.destroy(() => {
+      res.redirect("api/login");
+    });
+  }
+  res.redirect("/auth/login");
+});
+
+routerAuth.get("/users", async (req, res) => {
+  const users = await managerUser.getElements();
+  res.send(users);
 });
 
 export default routerAuth;
