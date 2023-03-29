@@ -46,14 +46,17 @@ routerAuth.get("/login", (req, res) => {
   if (req.session.login) {
     res.redirect("../api/products");
   } else {
-  res.render("auth/login");
+    res.render("auth/login");
   }
 });
 
-routerAuth.post("/login", (req, res) => {
+routerAuth.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  const user = await managerUser.getUserByEmail(email);
+
   try {
-    if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
+    //if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
+    if (user && user.password === password) {
       // if user is logged in
 
       req.session.login = true;
@@ -70,11 +73,16 @@ routerAuth.post("/login", (req, res) => {
 routerAuth.get("/logout", (req, res) => {
   if (req.session.login) {
     req.session.destroy(() => {
-      res.redirect("api/login");
+      console.log("Session destroyed");
+      res.redirect("../");
     });
+    return;
   }
-  res.redirect("/auth/login");
+
+  res.redirect("../");
 });
+
+
 
 routerAuth.get("/users", async (req, res) => {
   const users = await managerUser.getElements();

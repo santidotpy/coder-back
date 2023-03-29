@@ -67,6 +67,12 @@ io.on("connection", async (socket) => {
   console.log("New connection:", socket.id);
 });
 
+// routes
+
+app.get("/", (req, res) => {
+  res.redirect("/auth/login");
+});
+
 app.use("/api", routerProd);
 app.use("/api", routerCart);
 app.use("/auth", routerAuth);
