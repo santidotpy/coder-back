@@ -60,7 +60,9 @@ routerAuth.post("/login", async (req, res) => {
       // if user is logged in
 
       req.session.login = true;
-      res.redirect("../api/products");
+      const name = user.name;
+      res.redirect("../api/products?name=" + name)
+      //res.redirect("../api/products");
     } else {
       // if user is not logged in
       res.render("auth/login");
