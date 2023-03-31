@@ -61,7 +61,7 @@ routerAuth.post("/login", async (req, res) => {
 
       req.session.login = true;
       const name = user.name;
-      res.redirect("../api/products?name=" + name)
+      res.redirect("../api/products?name=" + name);
       //res.redirect("../api/products");
     } else {
       // if user is not logged in
@@ -83,8 +83,6 @@ routerAuth.get("/logout", (req, res) => {
 
   res.redirect("../");
 });
-
-
 
 routerAuth.get("/users", async (req, res) => {
   const users = await managerUser.getElements();
