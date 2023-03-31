@@ -5,10 +5,6 @@ const managerProduct = new ProductMongo();
 
 const routerProd = Router();
 
-routerProd.get("/", (req, res) => {
-  res.render("index");
-});
-
 routerProd.get("/products", async (req, res) => {
   const welcome = [];
   const name = req.query.name;
